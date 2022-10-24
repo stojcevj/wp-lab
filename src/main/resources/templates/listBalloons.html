@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Balloon Order page - Welcome and choose a Balloon</title>
+    <style type="text/css">
+      body {
+        width: 800px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to our Balloon Shop App</h1>
+    </header>
+    <main>
+      <form method="POST" action="/selectBalloon">
+        <th:block th:each="balloon : ${balloonList}">
+          <input type="radio" name="balloonColor" th:value="${balloon.name}" th:text="${balloon.name} + ' (' + ${balloon.description} + ')'"><br/>
+        </th:block>
+        <br/>
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>
