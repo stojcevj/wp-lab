@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="confimration-servlet", urlPatterns = "/ConfirmationInfo")
+@WebServlet(name="confirmation-servlet", urlPatterns = "/ConfirmationInfo")
 public class ConfirmationInfoServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
 
@@ -19,16 +19,28 @@ public class ConfirmationInfoServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String balloonColor = (String)req.getSession().getAttribute("balloonColor");
+        if(balloonColor == null){
+            resp.sendRedirect("");
+        }
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String clientName = req.getParameter("clientName");
         String clientAddress = req.getParameter("clientAddress");
-        WebContext context = new WebContext(req,resp,req.getServletContext());
-        context.setVariable("clientName", clientName);
-        context.setVariable("clientAddress", clientAddress);
-        context.setVariable("balloonColor", req.getSession().getAttribute("balloonColor"));
-        context.setVariable("balloonSize", req.getSession().getAttribute("balloonSize"));
-        context.setVariable("ipAddress", req.getRemoteHost());
-        context.setVariable("browser", req.getHeader("User-Agent"));
-        springTemplateEngine.process("confirmationInfo", context, resp.getWriter());
+        if(clientName == null || clientAddress == null || clientAddress.isEmpty() || clientName.isEmpty()){
+            resp.sendRedirect("BalloonOrder.do");
+        }else {
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("clientName", clientName);
+            context.setVariable("clientAddress", clientAddress);
+            context.setVariable("balloonColor", req.getSession().getAttribute("balloonColor"));
+            context.setVariable("balloonSize", req.getSession().getAttribute("balloonSize"));
+            context.setVariable("ipAddress", req.getRemoteHost());
+            context.setVariable("browser", req.getHeader("User-Agent"));
+            springTemplateEngine.process("confirmationInfo", context, resp.getWriter());
+        }
     }
 }
