@@ -1,5 +1,6 @@
 package mk.finki.ukim.wp.lab.web.servlet;
 
+import mk.finki.ukim.wp.lab.service.implementation.OrderServiceImpl;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -9,13 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Random;
 
 @WebServlet(name="confirmation-servlet", urlPatterns = "/ConfirmationInfo")
 public class ConfirmationInfoServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
+    private final OrderServiceImpl orderService;
 
-    public ConfirmationInfoServlet(SpringTemplateEngine springTemplateEngine) {
+    public ConfirmationInfoServlet(SpringTemplateEngine springTemplateEngine, OrderServiceImpl orderService) {
         this.springTemplateEngine = springTemplateEngine;
+        this.orderService = orderService;
     }
 
     @Override
@@ -40,6 +44,11 @@ public class ConfirmationInfoServlet extends HttpServlet {
             context.setVariable("balloonSize", req.getSession().getAttribute("balloonSize"));
             context.setVariable("ipAddress", req.getRemoteHost());
             context.setVariable("browser", req.getHeader("User-Agent"));
+            orderService.placeOrder((String)req.getSession().getAttribute("balloonColor"),
+                                    (String)req.getSession().getAttribute("balloonSize"),
+                                    clientName,
+                                    clientAddress,
+                                    Math.abs(new Random().nextLong()));
             springTemplateEngine.process("confirmationInfo", context, resp.getWriter());
         }
     }
