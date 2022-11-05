@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <td><b>Balloon Type </b></td>
-                <td th:text="${balloonColor}"></td>
+                <td th:text="${#request.getSession().getAttribute('balloonColor')}"></td>
             </tr>
         </table>
     </aside>

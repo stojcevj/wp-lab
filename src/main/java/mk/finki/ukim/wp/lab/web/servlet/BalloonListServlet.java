@@ -27,4 +27,11 @@ public class BalloonListServlet extends HttpServlet {
         context.setVariable("balloonList", balloonService.listAll());
         springTemplateEngine.process("listBalloons", context, resp.getWriter());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String balloonColor = req.getParameter("balloonColor");
+        req.getSession().setAttribute("balloonColor", balloonColor);
+        resp.sendRedirect("/selectBalloon");
+    }
 }

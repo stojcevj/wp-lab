@@ -15,7 +15,7 @@
       <h1>Welcome to our Balloon Shop App</h1>
     </header>
     <main>
-      <form method="POST" action="/selectBalloon">
+      <form method="POST" action="/">
         <th:block th:each="balloon : ${balloonList}">
           <input type="radio" name="balloonColor" th:value="${balloon.name}" th:text="${balloon.name} + ' (' + ${balloon.description} + ')'"><br/>
         </th:block>

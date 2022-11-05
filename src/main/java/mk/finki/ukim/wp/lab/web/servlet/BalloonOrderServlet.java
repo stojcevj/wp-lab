@@ -19,25 +19,10 @@ public class BalloonOrderServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String balloonColor = (String)req.getSession().getAttribute("balloonColor");
-        if(balloonColor == null){
-            resp.sendRedirect("");
-        }else{
-            WebContext context = new WebContext(req,resp,req.getServletContext());
-            context.setVariable("balloonSize", req.getSession().getAttribute("balloonSize"));
-            context.setVariable("balloonColor", req.getSession().getAttribute("balloonColor"));
-            springTemplateEngine.process("deliveryInfo", context, resp.getWriter());
-        }
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String balloonSize = req.getParameter("size");
         req.getSession().setAttribute("balloonSize", balloonSize);
         WebContext context = new WebContext(req,resp,req.getServletContext());
-        context.setVariable("balloonSize", balloonSize);
-        context.setVariable("balloonColor", req.getSession().getAttribute("balloonColor"));
         springTemplateEngine.process("deliveryInfo", context, resp.getWriter());
     }
 }

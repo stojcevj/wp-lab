@@ -37,19 +37,19 @@
         </tr>
         <tr>
           <td><b>Client IP Address</b></td>
-          <td th:text="${ipAddress}"></td>
+          <td th:text="${#request.getRemoteHost()}"></td>
         </tr>
         <tr>
           <td><b>Client Browser</b></td>
-          <td th:text="${browser}"></td>
+          <td th:text="${#request.getHeader('User-Agent')}"></td>
         </tr>
         <tr>
           <td><b>Balloon Color </b></td>
-          <td th:text="${balloonColor}"></td>
+          <td th:text="${#request.getSession().getAttribute('balloonColor')}"></td>
         </tr>
         <tr>
           <td><b>Balloon Size </b></td>
-          <td th:text="${balloonSize}"></td>
+          <td th:text="${#request.getSession().getAttribute('balloonSize')}"></td>
         </tr>
       </table>
       <div>

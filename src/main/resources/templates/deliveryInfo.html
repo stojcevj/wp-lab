@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <title>WP lab - Delivery Info</title>
@@ -54,11 +54,11 @@
 
         <tr>
           <td><b>Balloon Color </b></td>
-          <td th:text="${balloonColor}"></td>
+          <td th:text="${#request.getSession().getAttribute('balloonColor')}"></td>
         </tr>
         <tr>
           <td><b>Balloon Size </b></td>
-          <td th:text="${balloonSize}"></td>
+          <td th:text="${#request.getSession().getAttribute('balloonSize')}"></td>
         </tr>
       </table>
     </aside>
