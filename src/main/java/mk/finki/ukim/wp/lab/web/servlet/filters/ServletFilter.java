@@ -21,11 +21,11 @@ public class ServletFilter implements Filter {
         String balloonColor = (String) httpServletRequest.getSession().getAttribute("balloonColor");
         String path = httpServletRequest.getServletPath();
 
-        if(balloonColor == null && !path.equals("") && !path.equals("/orders")){
+        /*if(balloonColor == null && !path.equals("") && !path.equals("/orders") && !path.equals("/balloons") && !path.equals("/balloons/delete")){
             httpServletResponse.sendRedirect("");
-        }else{
+        }else{*/
             filterChain.doFilter(servletRequest, servletResponse);
-        }
+      //  }
     }
 
     @Override
