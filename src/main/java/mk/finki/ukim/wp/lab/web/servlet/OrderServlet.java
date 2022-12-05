@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="orders", urlPatterns = "/orders")
+@WebServlet(name="orders", urlPatterns = "/servlet/orders")
 public class OrderServlet extends HttpServlet {
     private final OrderService orderService;
     private final SpringTemplateEngine springTemplateEngine;

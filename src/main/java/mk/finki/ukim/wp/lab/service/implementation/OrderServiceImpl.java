@@ -7,6 +7,7 @@ import mk.finki.ukim.wp.lab.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -18,12 +19,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void placeOrder(String balloonColor, String balloonSize, String clientName, String clientAddress, Long orderId) {
+    public Optional<Order> placeOrder(String balloonColor, String balloonSize, String clientName, String clientAddress, Long orderId) {
         if(balloonColor.isEmpty() || clientName.isEmpty() || balloonSize.isEmpty() || clientAddress.isEmpty()){
-
+            return Optional.empty();
         }else{
-            orderRepository.addOrder(new Order(balloonColor, balloonSize, clientName, clientAddress, orderId));
+            Order o = new Order(balloonColor, balloonSize, clientName, clientAddress, orderId);
+            orderRepository.deleteOrder(orderId);
+            orderRepository.addOrder(o);
+            return Optional.of(o);
         }
+    }
+
+    @Override
+    public Optional<Order> findById(Long id) {
+        return orderRepository.getOrderById(id);
+    }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderRepository.deleteOrder(id);
     }
 
     @Override
