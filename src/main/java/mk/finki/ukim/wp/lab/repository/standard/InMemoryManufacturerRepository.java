@@ -1,4 +1,4 @@
-package mk.finki.ukim.wp.lab.repository;
+package mk.finki.ukim.wp.lab.repository.standard;
 
 import mk.finki.ukim.wp.lab.bootstrap.DataHolder;
 import mk.finki.ukim.wp.lab.model.Manufacturer;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ManufacturerRepository {
+public class InMemoryManufacturerRepository {
     public List<Manufacturer> findAll(){
         return DataHolder.manufacturers.stream().toList();
     }

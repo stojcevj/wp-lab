@@ -1,4 +1,4 @@
-package mk.finki.ukim.wp.lab.repository;
+package mk.finki.ukim.wp.lab.repository.standard;
 
 import mk.finki.ukim.wp.lab.bootstrap.DataHolder;
 import mk.finki.ukim.wp.lab.model.Balloon;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class OrderRepository {
+public class InMemoryOrderRepository {
 
     public List<Order> listOrders(){
         return DataHolder.orders;

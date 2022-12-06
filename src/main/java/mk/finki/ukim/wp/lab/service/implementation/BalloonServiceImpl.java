@@ -3,8 +3,10 @@ package mk.finki.ukim.wp.lab.service.implementation;
 import mk.finki.ukim.wp.lab.model.Balloon;
 import mk.finki.ukim.wp.lab.model.Manufacturer;
 import mk.finki.ukim.wp.lab.model.exceptions.ManufacturerNotFoundException;
-import mk.finki.ukim.wp.lab.repository.BalloonRepository;
-import mk.finki.ukim.wp.lab.repository.ManufacturerRepository;
+import mk.finki.ukim.wp.lab.repository.jpa.BalloonRepository;
+import mk.finki.ukim.wp.lab.repository.jpa.ManufacturerRepository;
+import mk.finki.ukim.wp.lab.repository.standard.InMemoryBalloonRepository;
+import mk.finki.ukim.wp.lab.repository.standard.InMemoryManufacturerRepository;
 import mk.finki.ukim.wp.lab.service.BalloonService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class BalloonServiceImpl implements BalloonService {
 
     @Override
     public List<Balloon> listAll() {
-        return balloonRepository.findAllBalloons();
+        return balloonRepository.findAll();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class BalloonServiceImpl implements BalloonService {
             return null;
         }
 
-        return balloonRepository.findAllByNameOrDescription(text).stream().toList();
+        return balloonRepository.findAllByDescription(text).stream().toList();
     }
 
     @Override
@@ -45,13 +47,15 @@ public class BalloonServiceImpl implements BalloonService {
     public Optional<Balloon> save(String name, String description, Long manufacturer, Long id) {
         Manufacturer m = manufacturerRepository.findById(manufacturer).orElseThrow(()->new ManufacturerNotFoundException(manufacturer));
         Balloon balloon = new Balloon(name, description, m);
-        balloonRepository.deleteBalloon(id);
-        return balloonRepository.saveBalloon(balloon);
+        if(id != null){
+            balloonRepository.deleteById(id);
+        }
+        return Optional.of(balloonRepository.save(balloon));
     }
 
     @Override
     public void deleteBalloon(Long id) {
-        balloonRepository.deleteBalloon(id);
+        balloonRepository.deleteById(id);
     }
 
 }

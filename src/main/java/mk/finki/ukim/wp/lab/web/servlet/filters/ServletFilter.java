@@ -1,10 +1,13 @@
 package mk.finki.ukim.wp.lab.web.servlet.filters;
 
+import mk.finki.ukim.wp.lab.model.User;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebFilter
 public class ServletFilter implements Filter {
@@ -18,14 +21,14 @@ public class ServletFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
-        String balloonColor = (String) httpServletRequest.getSession().getAttribute("balloonColor");
+        Optional<User> user = (Optional<User>) httpServletRequest.getSession().getAttribute("user");
         String path = httpServletRequest.getServletPath();
 
-        /*if(balloonColor == null && !path.equals("") && !path.equals("/orders") && !path.equals("/balloons") && !path.equals("/balloons/delete")){
-            httpServletResponse.sendRedirect("");
-        }else{*/
+        if(user == null && !path.equals("/auth") && !path.equals("/auth/register")){
+            httpServletResponse.sendRedirect("/auth");
+        }else{
             filterChain.doFilter(servletRequest, servletResponse);
-      //  }
+        }
     }
 
     @Override

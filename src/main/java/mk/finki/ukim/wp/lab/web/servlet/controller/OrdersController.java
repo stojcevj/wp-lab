@@ -42,10 +42,8 @@ public class OrdersController {
     }
 
     @PostMapping
-    public String saveOrder(@RequestParam String balloonColor,@RequestParam String balloonSize,
-                            @RequestParam String clientName, @RequestParam String clientAddress,
-                            @RequestParam(required = false) Long id){
-        orderService.placeOrder(balloonColor, balloonSize, clientName, clientAddress, id);
+    public String saveOrder(@RequestParam String balloonColor,@RequestParam String balloonSize){
+        orderService.placeOrder(balloonColor, balloonSize);
         return "redirect:/orders";
     }
 }

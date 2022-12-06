@@ -1,4 +1,4 @@
-package mk.finki.ukim.wp.lab.repository;
+package mk.finki.ukim.wp.lab.repository.standard;
 
 import mk.finki.ukim.wp.lab.bootstrap.DataHolder;
 import mk.finki.ukim.wp.lab.model.Balloon;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class BalloonRepository {
+public class InMemoryBalloonRepository {
 
     public List<Balloon> findAllBalloons(){
         return DataHolder.balloons.stream().sorted(Comparator.comparing(Balloon::getName)).collect(Collectors.toList());

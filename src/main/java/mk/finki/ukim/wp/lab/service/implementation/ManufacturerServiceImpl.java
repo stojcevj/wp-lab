@@ -1,7 +1,8 @@
 package mk.finki.ukim.wp.lab.service.implementation;
 
 import mk.finki.ukim.wp.lab.model.Manufacturer;
-import mk.finki.ukim.wp.lab.repository.ManufacturerRepository;
+import mk.finki.ukim.wp.lab.repository.jpa.ManufacturerRepository;
+import mk.finki.ukim.wp.lab.repository.standard.InMemoryManufacturerRepository;
 import mk.finki.ukim.wp.lab.service.ManufacturerService;
 import org.springframework.stereotype.Service;
 

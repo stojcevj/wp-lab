@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
-    Optional<Order> placeOrder(String balloonColor, String balloonSize, String clientName, String clientAddress, Long orderId);
+    Optional<Order> placeOrder(String balloonColor, String balloonSize);
     Optional<Order> findById(Long id);
     void deleteOrder(Long id);
     List<Order> getAllOrders();

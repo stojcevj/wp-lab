@@ -33,10 +33,7 @@ public class ConfirmationInfoServlet extends HttpServlet {
             context.setVariable("clientName", clientName);
             context.setVariable("clientAddress", clientAddress);
             orderService.placeOrder((String)req.getSession().getAttribute("balloonColor"),
-                                    (String)req.getSession().getAttribute("balloonSize"),
-                                    clientName,
-                                    clientAddress,
-                                    Math.abs(new Random().nextLong()));
+                                    (String)req.getSession().getAttribute("balloonSize"));
             springTemplateEngine.process("confirmationInfo", context, resp.getWriter());
         }
     }
