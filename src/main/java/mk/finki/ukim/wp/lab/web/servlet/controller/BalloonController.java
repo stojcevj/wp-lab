@@ -69,4 +69,15 @@ public class BalloonController {
         return "add-balloon";
     }
 
+    @GetMapping("/removeBalloonsBySearch")
+    public String removeBalloonsBySearch(@RequestParam(required = false) String balloonsDescription){
+        List<Balloon> balloonsToDelete = balloonService.listAll();
+        for(Balloon b : balloonsToDelete){
+            if(b.getDescription().contains(balloonsDescription)){
+                balloonService.deleteBalloon(b.getId());
+            }
+        }
+        return "redirect:/balloons";
+    }
+
 }

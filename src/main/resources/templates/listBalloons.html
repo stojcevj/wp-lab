@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <tr th:each="balloon : ${balloonList}">
-            <td>
+            <td class="balloons">
               <h7 th:text="${balloon.getName()}"></h7>
             </td>
             <td>
@@ -40,14 +40,14 @@
             </td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
               <form th:action="@{/balloons/delete/{id} (id=${balloon.getId()})}" th:method="delete">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-delete btn-danger">
                   <i class="fa fa-trash">Delete</i>
                 </button>
               </form>
             </td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
               <form th:action="@{/balloons/edit-form/{id} (id=${balloon.getId()})}" th:method="get">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-edit btn-primary">
                   <i>Edit</i>
                 </button>
               </form>
@@ -55,7 +55,7 @@
           </tr>
         </tbody>
       </table>
-      <a sec:authorize="hasRole('ROLE_ADMIN')" href="/balloons/add-form" class="btn btn-primary">Add Balloon</a></br>
+      <a sec:authorize="hasRole('ROLE_ADMIN')" href="/balloons/add-form" class="btn btn-add btn-primary">Add Balloon</a></br>
       <form action="/" method="post">
         <th:block th:each="balloon : ${balloonList}">
           <input type="radio" name="balloonColor" th:value="${balloon.name}" th:text="${balloon.name} + ' (' + ${balloon.description} + ')'"></br>
@@ -63,6 +63,14 @@
         <input type="submit" value="Submit">
       </form>
       <br/>
+
+      <form action="/balloons/removeBalloonsBySearch" method="get">
+        <div class="input-group">
+          <label for="balloonsDescription"></label>
+          <input id="balloonsDescription" type="text" name="balloonsDescription">
+        </div>
+        <input type="submit" th:value="Submit">
+      </form>
 
     </main>
   </body>
