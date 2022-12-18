@@ -17,6 +17,7 @@
     </style>
   </head>
   <body>
+  <header th:replace="fragments/header"></header>
     <section>
       <header>
         <h1>Balloon Order page - Order confirmation </h1>
@@ -30,10 +31,6 @@
         <tr>
           <td><b>Client Name </b></td>
           <td th:text="${clientName}"></td>
-        </tr>
-        <tr>
-          <td><b>Client Address </b></td>
-          <td th:text="${clientAddress}"></td>
         </tr>
         <tr>
           <td><b>Client IP Address</b></td>

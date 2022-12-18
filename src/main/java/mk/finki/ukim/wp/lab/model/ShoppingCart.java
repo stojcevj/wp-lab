@@ -1,6 +1,7 @@
 package mk.finki.ukim.wp.lab.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class ShoppingCart {
 
     private LocalDateTime dateCreated;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public ShoppingCart(User user, LocalDateTime dateCreated) {
@@ -30,5 +31,10 @@ public class ShoppingCart {
     }
 
     public ShoppingCart() {
+    }
+
+    public ShoppingCart(User user) {
+        this.user = user;
+        this.orders = new ArrayList<>();
     }
 }

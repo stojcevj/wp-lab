@@ -1,6 +1,7 @@
 package mk.finki.ukim.wp.lab.web.servlet.filters;
 
 import mk.finki.ukim.wp.lab.model.User;
+import org.springframework.context.annotation.Profile;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @WebFilter
+@Profile("servlet")
 public class ServletFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

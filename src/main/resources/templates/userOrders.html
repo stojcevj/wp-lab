@@ -9,37 +9,46 @@
         <title>Orders</title>
     </head>
     <body>
+    <header th:replace="fragments/header"></header>
         <h1>Orders</h1>
         <div class="container">
             <table class="table">
                 <thead>
                     <td>OrderID</td>
                     <td>clientName</td>
-                    <td>clientAddresss</td>
                     <td>balloonSize</td>
                     <td>balloonColor</td>
+                    <td>dateCreated</td>
                     <td>Delete</td>
                     <td>Edit</td>
+                    <td></td>
                 </thead>
                 <tbody>
                     <th:block th:each="order : ${ordersList}">
                         <tr>
                             <td th:text="${order.getOrderId()}"></td>
-                            <!--<td th:text="${order.getClientName()}"></td>
-                            <td th:text="${order.getClientAddress()}"></td>-->
+                            <td th:text="${clientName}"></td>
                             <td th:text="${order.getBalloonSize()}"></td>
                             <td th:text="${order.getBalloonColor()}"></td>
+                            <td th:text="${order.getDateCreated()}"></td>
                             <td>
-                                <form th:action="@{/orders/delete/{id} (id=${order.getOrderId()})}" th:method="delete">
+                                <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/orders/delete/{id} (id=${order.getOrderId()})}" th:method="delete">
                                     <button type="submit" class="btn btn-danger">
                                         <i>Delete</i>
                                     </button>
                                 </form>
                             </td>
                             <td>
-                                <form th:action="@{/orders/edit/{id} (id=${order.getOrderId()})}" th:method="get">
+                                <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/orders/edit/{id} (id=${order.getOrderId()})}" th:method="get">
                                     <button type="submit" class="btn btn-primary">
                                         <i>Edit</i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td sec:authorize="isAuthenticated()">
+                                <form th:action="@{/orders/cart/{id} (id=${order.getOrderId()})}" th:method="get">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i>Add To Cart</i>
                                     </button>
                                 </form>
                             </td>

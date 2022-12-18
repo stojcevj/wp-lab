@@ -15,9 +15,8 @@
     </style>
   </head>
   <body>
-    <header>
-      <h1>Welcome to our Balloon Shop App</h1>
-    </header>
+
+  <header th:replace="fragments/header"></header>
     <main>
       <div th:if="${hasError}">
         <div>
@@ -39,14 +38,14 @@
             <td>
               <h7 th:text="${balloon.getDescription()}"></h7>
             </td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
               <form th:action="@{/balloons/delete/{id} (id=${balloon.getId()})}" th:method="delete">
                 <button type="submit" class="btn btn-danger">
                   <i class="fa fa-trash">Delete</i>
                 </button>
               </form>
             </td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
               <form th:action="@{/balloons/edit-form/{id} (id=${balloon.getId()})}" th:method="get">
                 <button type="submit" class="btn btn-primary">
                   <i>Edit</i>
@@ -56,7 +55,7 @@
           </tr>
         </tbody>
       </table>
-      <a href="/balloons/add-form" class="btn btn-primary">Add Balloon</a></br>
+      <a sec:authorize="hasRole('ROLE_ADMIN')" href="/balloons/add-form" class="btn btn-primary">Add Balloon</a></br>
       <form action="/" method="post">
         <th:block th:each="balloon : ${balloonList}">
           <input type="radio" name="balloonColor" th:value="${balloon.name}" th:text="${balloon.name} + ' (' + ${balloon.description} + ')'"></br>

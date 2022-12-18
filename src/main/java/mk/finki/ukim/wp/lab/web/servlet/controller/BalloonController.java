@@ -5,6 +5,7 @@ import mk.finki.ukim.wp.lab.model.Manufacturer;
 import mk.finki.ukim.wp.lab.model.exceptions.ManufacturerNotFoundException;
 import mk.finki.ukim.wp.lab.service.BalloonService;
 import mk.finki.ukim.wp.lab.service.ManufacturerService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +42,14 @@ public class BalloonController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteBalloon(@PathVariable Long id){
         balloonService.deleteBalloon(id);
         return "redirect:/balloons";
     }
 
     @GetMapping("/edit-form/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getEditBalloonPage(@PathVariable Long id, Model model){
         if(balloonService.findById(id).isPresent()){
             Balloon balloon = balloonService.findById(id).get();
@@ -59,6 +62,7 @@ public class BalloonController {
     }
 
     @GetMapping("/add-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddBalloonPage(Model model){
         List<Manufacturer> manufacturers = manufacturerService.findAll();
         model.addAttribute("manufacturers", manufacturers);

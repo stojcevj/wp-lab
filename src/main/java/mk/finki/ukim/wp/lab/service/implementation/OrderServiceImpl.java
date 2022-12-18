@@ -7,6 +7,7 @@ import mk.finki.ukim.wp.lab.repository.standard.InMemoryOrderRepository;
 import mk.finki.ukim.wp.lab.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<Order> placeOrder(String balloonColor, String balloonSize) {
+    public Optional<Order> placeOrder(String balloonColor, String balloonSize, LocalDateTime dateCreated) {
         if(balloonColor.isEmpty()){
             return Optional.empty();
         }else{
-            Order o = new Order(balloonColor, balloonSize);
+            Order o = new Order(balloonColor, balloonSize, dateCreated);
             orderRepository.save(o);
             return Optional.of(o);
         }

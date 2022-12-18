@@ -9,6 +9,7 @@
         <title>EditOrder</title>
     </head>
     <body>
+    <header th:replace="fragments/header"></header>
         <div class="container">
             <form action="/orders" method="post">
                 <input name="id" type="hidden" th:value="${order} != null ? ${order.getOrderId()} : ''">

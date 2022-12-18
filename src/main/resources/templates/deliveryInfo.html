@@ -30,16 +30,12 @@
     </style>
   </head>
   <body>
-    <header>
-      <h1>Balloon Order page - Delivery information </h1>
-    </header>
+
+  <header th:replace="fragments/header"></header>
     <section>
 
       <form method="POST" action="/ConfirmationInfo">
-        <label for="clientName">Client Name:</label><br/>
-        <input type="text" id="clientName" name="clientName"/><br/>
-        <label for="clientAddress">Delivery Address:</label><br/>
-        <textarea cols="40" rows="3" id="clientAddress" name="clientAddress"></textarea><br/>
+        <input type="datetime-local" name="dateCreated"/>
         <button name="submit" value="Submit">Submit</button>
       </form>
 

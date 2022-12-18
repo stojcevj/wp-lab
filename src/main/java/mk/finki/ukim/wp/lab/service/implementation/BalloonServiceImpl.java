@@ -45,6 +45,9 @@ public class BalloonServiceImpl implements BalloonService {
 
     @Override
     public Optional<Balloon> save(String name, String description, Long manufacturer, Long id) {
+        if(manufacturer == null){
+            throw new ManufacturerNotFoundException(0L);
+        }
         Manufacturer m = manufacturerRepository.findById(manufacturer).orElseThrow(()->new ManufacturerNotFoundException(manufacturer));
         Balloon balloon = new Balloon(name, description, m);
         if(id != null){
