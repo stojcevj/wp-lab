@@ -3,14 +3,16 @@ package mk.finki.ukim.wp.lab.selenium;
 import mk.finki.ukim.wp.lab.model.Balloon;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends AbstractPage{
 
-        private WebElement user;
+        private WebElement username;
 
         private WebElement password;
 
+        @FindBy(css=".btn-block")
         private WebElement submit;
 
         public LoginPage(WebDriver driver) {
@@ -25,7 +27,7 @@ public class LoginPage extends AbstractPage{
         }
 
         public static BalloonsPage doLogin(WebDriver driver, LoginPage loginPage, String username, String password) {
-            loginPage.user.sendKeys(username);
+            loginPage.username.sendKeys(username);
             loginPage.password.sendKeys(password);
             loginPage.submit.click();
             System.out.println(driver.getCurrentUrl());

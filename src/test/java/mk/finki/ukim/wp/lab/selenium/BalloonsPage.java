@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class BalloonsPage extends AbstractPage{
     @FindBy(css=".balloons")
-    private List<WebElement> products;
+    private List<WebElement> balloons;
     @FindBy(css="btn-delete")
     private List<WebElement> deleteButtons;
     @FindBy(css="btn-edit")
@@ -30,7 +30,7 @@ public class BalloonsPage extends AbstractPage{
     }
 
     public void assertElements(int balloonsNumber, int deleteButtons, int editButtons, int addButtons) {
-        Assert.assertEquals("rows do not match", balloonsNumber, this.getProducts().size());
+        Assert.assertEquals("rows do not match", balloonsNumber, this.getBalloons().size());
         Assert.assertEquals("delete do not match", deleteButtons, this.getDeleteButtons().size());
         Assert.assertEquals("edit do not match", editButtons, this.getEditButtons().size());
         Assert.assertEquals("add is visible", addButtons, this.getAddButtons().size());
